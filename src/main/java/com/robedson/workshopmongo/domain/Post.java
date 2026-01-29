@@ -13,6 +13,7 @@ import com.robedson.workshopmongo.dto.AuthorDTO;
 public class Post implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	// class Post - representa um documento Mongo (posts)
 	//  1. Atributos
 	@Id
 	private String id;

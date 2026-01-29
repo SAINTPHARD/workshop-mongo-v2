@@ -26,6 +26,9 @@ public class UserResource {
 	@Autowired
 	private UserService service;
 	
+	// ======================================
+	// 1. Endpoint para buscar todos os usuários
+	// ======================================
 	@GetMapping
 	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> list = service.findAll();

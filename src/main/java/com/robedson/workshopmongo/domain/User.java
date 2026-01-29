@@ -9,14 +9,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /*
  * @Document indica que essa classe será mapeada como um documento do MongoDB.
  * O "collection = user" define o nome da collection no banco.
+ * classe User - representa um documento Mongo (users)
  */
+
 @Document(collection = "user")
 public class User implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Serializable - Padrão JAVA permitir conversão de objetos 
+	 * em bytes para enviar pela rede ou salvar em arquivos.
+	 * @serializable
+
+	 */
+	
 	
 	// 1. Atributos
 	@Id 				// Indica o campo que será o identificador principal do documento no MongoDB.
