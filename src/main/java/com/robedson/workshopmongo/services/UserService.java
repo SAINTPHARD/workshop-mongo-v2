@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.robedson.workshopmongo.domain.User;
+import com.robedson.workshopmongo.dto.UserDTO;
 import com.robedson.workshopmongo.repository.UserRepository;
 import com.robedson.workshopmongo.services.exception.ObjectNotFoundException;
 
@@ -16,7 +17,7 @@ import com.robedson.workshopmongo.services.exception.ObjectNotFoundException;
  * O Controller chama o Service e o Service chama o Repository.
  * @Service indica que essa classe é um serviço do Spring.
  */
-@Service
+@Service	// Indica que essa classe é um serviço do Spring.
 public class UserService {
 
 	// 0. Injeção de dependência do UserRepository para acessar os dados dos usuários no MongoDB.
@@ -39,5 +40,21 @@ public class UserService {
 			// Se não tiver valor, lança a exceção personalizada.
 			throw new ObjectNotFoundException("Usuário não encontrado; Id: " + id);
 		}
+	}
+	
+	// 3. Insere um novo usuário no banco de dados.
+	// CREATE
+	public User insert(User user) {
+		return userRepository.insert(user);
+	}
+
+	// 4. Converte um UserDTO para um objeto User.
+	public User fromDTO(UserDTO objDto) {
+		// Cria um novo objeto User a partir do UserDTO
+		User user = new User();
+		user.setId(objDto.getId());
+		user.setName(objDto.getName());
+		user.setEmail(objDto.getEmail());
+		return user;
 	}
 }

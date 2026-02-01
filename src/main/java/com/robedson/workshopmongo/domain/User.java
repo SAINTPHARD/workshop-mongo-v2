@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * classe User - representa um documento Mongo (users)
  */
 
-@Document(collection = "user")
+@Document(collection = "User")	// Define o nome da coleção no MongoDB. (pode ser qq nome)
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**

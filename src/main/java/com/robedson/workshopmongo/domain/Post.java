@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.robedson.workshopmongo.dto.AuthorDTO;
 
-@Document(collection = "post") // Essencial: Define o nome da coleção no MongoDB
+@Document(collection = "Post") // Essencial: Define o nome da coleção no MongoDB
 public class Post implements Serializable {
 	private static final long serialVersionUID = 1L;
 
