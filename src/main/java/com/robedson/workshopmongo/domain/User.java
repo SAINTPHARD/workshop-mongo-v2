@@ -1,9 +1,12 @@
 package com.robedson.workshopmongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /*
@@ -12,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * classe User - representa um documento Mongo (users)
  */
 
-@Document(collection = "User")	// Define o nome da coleção no MongoDB. (pode ser qq nome)
+@Document(collection = "User")	// Define o nome da coleção no MongoDB.
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
@@ -29,6 +32,14 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 
+	// ASSOCIAÇÃO COM POSTS
+	/**
+	 * @DBRef(lazy = true) Indica que os posts não serão salvos "embutidos" aqui dentro.
+	 * O Spring SÓ vai buscar os posts no banco de dados se chamarmos o getPosts().
+	 * new ArrayList<>(); - Instancia a lista vazia para evitar NullPointerException
+	 */
+	@DBRef(lazy = true) // 
+	private List<Post> posts = new ArrayList<>(); // Instancia a lista vazia para evitar NullPointerException
 
 	// 2. Construtor vazio
 	public User() {
@@ -36,7 +47,7 @@ public class User implements Serializable {
 	}
 
 	// 3. Construtor com argumentos
-	// Util para usuario ja instanciado (preenchido)
+	// Util para usuario ja instanciado
 	public User(String id, String name, String email) {
 		super();
 		this.id = id;
@@ -68,6 +79,15 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}	
+	
+	// Getters e Setters do Posts
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
 	
 	/**
 	 * 5. hashCode e equals
