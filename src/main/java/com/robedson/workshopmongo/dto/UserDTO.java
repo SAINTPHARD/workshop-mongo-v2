@@ -34,6 +34,7 @@ public class UserDTO implements Serializable {
 	 */
 	public UserDTO(com.robedson.workshopmongo.domain.User user) {
 		this.id = user.getId();
+		// ou id = obj.getId();
 		this.name = user.getName();
 		this.email = user.getEmail();
 	}

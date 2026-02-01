@@ -9,16 +9,17 @@ import com.robedson.workshopmongo.services.exception.ObjectNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-@ControllerAdvice
+@ControllerAdvice // Indicar ao spring que essa classe trata erros
 public class ResourceExceptionHandler {
 
 	@ExceptionHandler(ObjectNotFoundException.class)
+	// nome = objectNotFound
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
 		
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		
 		StandardError err = new StandardError(
-				System.currentTimeMillis(), 
+				System.currentTimeMillis(), 	// 
 				status.value(), 
 				"Não encontrado", 
 				e.getMessage(), 

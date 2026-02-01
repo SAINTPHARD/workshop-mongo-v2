@@ -1,8 +1,4 @@
-/**
- * 
- */
 package com.robedson.workshopmongo.resources.exception;
-
 /**
  * Garantir a Exceção Personalizada para objeto não encontrado.
  * @param msg Mensagem de erro que descreve a exceção.
@@ -14,5 +10,4 @@ public class ObjectNotFoundException extends RuntimeException {
 	public ObjectNotFoundException(String msg) {
 		super(msg);
 	}
-
 }

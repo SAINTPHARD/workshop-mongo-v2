@@ -2,12 +2,19 @@ package com.robedson.workshopmongo.resources.exception;
 
 public class StandardError {
 
+	// Atributos para tratamento de erros
 	private Long timestamp;
 	private Integer status;
 	private String error;
 	private String message;
 	private String path;
 
+	// Construtor vazio
+	public StandardError() {
+		
+	}
+	
+	// construtor com parametros (padrão)
 	public StandardError(Long timestamp, Integer status, String error, String message, String path) {
 		super();
 		this.timestamp = timestamp;

@@ -5,8 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.robedson.workshopmongo.domain.User;
@@ -27,8 +33,8 @@ public class UserResource {
     @GetMapping
     public ResponseEntity<List<UserDTO>> findAll() {
         List<UserDTO> list = service.findAll()
-                .stream()
-                .map(UserDTO::new)
+                .stream() // para pegar cada user
+                .map(UserDTO::new) // pega cada user e transforma em um UserDTO
                 .toList();
 
         return ResponseEntity.ok(list);
@@ -39,9 +45,9 @@ public class UserResource {
     // GET /users/{id}
     // ===============================
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+    public ResponseEntity<User> findById(@PathVariable String id) {
         User user = service.findById(id);
-        return ResponseEntity.ok(new UserDTO(user));
+        return ResponseEntity.ok().body(user);
     }
 
     // ===============================
@@ -68,11 +74,13 @@ public class UserResource {
     // PUT /users/{id}
     // ===============================
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(
-            @PathVariable String id,			// pega o id da requisição
-            @RequestBody UserDTO dto) {			// pega o corpo da requisição
-
-        User user = service.update(service.fromDTO(dto));
+    public ResponseEntity<UserDTO> update(@PathVariable String id, @RequestBody UserDTO dto) {
+        User user = service.fromDTO(dto);
+        
+        //Garantir que o objeto user tenha o ID da URL
+        user.setId(id);
+        
+        user = service.update(user);
         return ResponseEntity.ok(new UserDTO(user));
     }
 
