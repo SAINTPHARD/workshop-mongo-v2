@@ -65,7 +65,7 @@ public class UserResource {
                 .toUri();						// Transforma esse texto em um objeto URI oficial do Java
 
         return ResponseEntity					// Retorna HTTP seguindo o padrao REST
-        		.created(uri)					// Status 201	
+        		.created(uri)					// Status, código 201	
         		.body(new UserDTO(user));		// Retorna o usuario criado
     }
 
