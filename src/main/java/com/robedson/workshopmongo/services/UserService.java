@@ -59,7 +59,7 @@ public class UserService {
 	// fromDTO = 
 	public User fromDTO(UserDTO objDto) {
 		// Cria um novo objeto User a partir do UserDTO
-		User user = new User();
+		User user = new User();					// cria um objeto vazio da entidade.
 		user.setId(objDto.getId());
 		user.setName(objDto.getName());
 		user.setEmail(objDto.getEmail());

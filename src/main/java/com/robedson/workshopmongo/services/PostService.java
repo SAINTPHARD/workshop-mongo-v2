@@ -36,4 +36,10 @@ public class PostService {
 	 * vamos  criar o controlador REST que vai receber a requisição GET /posts/{id}.
 	 * Na classe PostResource, e im´lementar o método findById, que vai ser chamado pelo controlador
 	 */
+	
+	// Método finByTitle
+	// O serviço vai expor essa funcionalidade para quem quiser usar.
+	public List<Post> findByTitle(String text) {
+		return repos.findByTitleContainingIgnoreCase(text);
+	}
 }
