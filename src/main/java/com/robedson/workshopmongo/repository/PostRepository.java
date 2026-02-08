@@ -1,5 +1,6 @@
 package com.robedson.workshopmongo.repository;
 
+import java.util.*;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,14 +12,21 @@ import com.robedson.workshopmongo.domain.Post;
 @Repository
 public interface PostRepository extends MongoRepository<Post, String> {
 	/**
-	 * PostRepository - acesso aos dados dos posts no MongoDB.
-	 * Interface de repositório para gerenciar (ex: Save, Delete, Update) operações relacionadas aos posts no banco de dados.
-	 * Repositório para gerenciar operações relacionadas aos posts no banco de dados.
+	 * PostRepository - acesso aos dados dos posts no MongoDB. Interface de
+	 * repositório para gerenciar (ex: Save, Delete, Update) operações relacionadas
+	 * aos posts no banco de dados. Repositório para gerenciar operações
+	 * relacionadas aos posts no banco de dados.
 	 */
- // Query Method: O Spring monta a busca 'LIKE %texto%' ignorando maiúsculas/minúsculas
- List<Post> findByTitleContainingIgnoreCase(String text);
- 
- // Buscar por título ou corpo do post, ignorando maiúsculas/minúsculas
- @Query("{ $or: [ { 'title': { $regex: ?0, $options: 'i' } }, { 'body': { $regex: ?0, $options: 'i' } } ] }")	
- List<Post> searchTitleOrdBody(String text);
+	// Query Method: O Spring monta a busca 'LIKE %texto%' ignorando
+	// maiúsculas/minúsculas
+	List<Post> findByTitleContainingIgnoreCase(String text);
+
+	// Buscar por título ou corpo do post, ignorando maiúsculas/minúsculas
+	@Query("{ $or: [ { 'title': { $regex: ?0, $options: 'i' } }, { 'body': { $regex: ?0, $options: 'i' } } ] }")
+	List<Post> searchTitleOrdBody(String text);
+
+	//=== BUSCA COMPLETA (Texto + Data Mínima + Data Máxima) ===
+	// ?0 = texto, ?1 = dataMinima, ?2 = dataMaxima
+	@Query("{ $and: [ { date: {$gte: ?1} }, { date: { $lte: ?2} } , { $or: [ { 'title': { $regex: ?0, $options: 'i' } }, { 'body': { $regex: ?0, $options: 'i' } } ] } ] }")
+	List<Post> fullSearch(String text, Date minDate, Date maxDate);
 }

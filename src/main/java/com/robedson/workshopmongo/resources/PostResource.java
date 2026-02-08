@@ -1,5 +1,6 @@
 package com.robedson.workshopmongo.resources;
 
+import java.util.*;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.robedson.workshopmongo.domain.Post;
+import com.robedson.workshopmongo.resources.util.URL;
 import com.robedson.workshopmongo.services.PostService;
 
 @RestController						// define a classe como um controlador
@@ -43,4 +45,23 @@ public class PostResource {
 		List<Post> list = service.findByTitle(text);
 		return ResponseEntity.ok().body(list);
 	}
+	
+	// Endpoint fullSearch
+		@GetMapping(value = "/fullsearch")
+		public ResponseEntity<List<Post>> fullSearch(
+				@RequestParam(value="text", defaultValue="") String text,
+				@RequestParam(value="minDate", defaultValue="") String minDate,
+				@RequestParam(value="maxDate", defaultValue="") String maxDate) {
+			
+			text = URL.decodeParam(text);
+			
+			// Ajuste aqui: chamando 'converterDate' e usando new Date(0L) para data mínima
+			Date min = (Date) URL.converterDate(minDate, new Date(0L));
+			
+			// Ajuste aqui: chamando 'converterDate' e usando new Date() para data máxima (agora)
+			Date max = (Date) URL.converterDate(maxDate, new Date(0));
+			
+			List<Post> list = service.fullSearch(text, min, max);
+			return ResponseEntity.ok().body(list);
+		}
 }
