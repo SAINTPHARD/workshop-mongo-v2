@@ -21,9 +21,9 @@ public class PostService {
 	private PostRepository repos;
 	
 	// Método para buscar um post por ID
-	public PostRepository findById(String id) {
+	public Post findById(String id) {
 		Optional<Post> obj =  repos.findById(id);
-		return (PostRepository) obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 		
 	}
 	
@@ -36,10 +36,10 @@ public class PostService {
 	 * vamos  criar o controlador REST que vai receber a requisição GET /posts/{id}.
 	 * Na classe PostResource, e im´lementar o método findById, que vai ser chamado pelo controlador
 	 */
+
+	// Método findByTitle para buscar posts por título, 
 	
-	// Método finByTitle
-	// O serviço vai expor essa funcionalidade para quem quiser usar.
 	public List<Post> findByTitle(String text) {
-		return repos.findByTitleContainingIgnoreCase(text);
+		return repos.searchTitleOrdBody(text);
 	}
 }

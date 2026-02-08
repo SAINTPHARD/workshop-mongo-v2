@@ -51,8 +51,8 @@ public class UserService {
 	// 3. Insere um novo usuário no banco de dados.
 	// CREATE - INSERT
 	// POST /users (impl na classe UserResource)
-	public User insert(User user) {
-		return userRepository.insert(user);
+	public User insert(User obj) {
+		return userRepository.insert(obj);
 	}
 
 	// 3.1 Converte um UserDTO para um objeto User.
@@ -70,14 +70,14 @@ public class UserService {
 	// PUT /users/{id}
 	public User update(User user) {
 		User newUser = findById(user.getId());
-		updateData(newUser, user);
+		updateData(newUser, user); // método auxiliar a ser implementado logo abaixo 
 		return userRepository.save(newUser);
 		
 	}
 
 	// método auxiliar para atualiza o novo usuario
 	private void updateData(User newUser, User user) {
-		newUser.setEmail(user.getName());
+		newUser.setName(user.getName());
 		newUser.setEmail(user.getEmail());
 		
 		
@@ -87,6 +87,9 @@ public class UserService {
 		 * newUser: É o usuário que veio do Banco de Dados (versão antiga)
 		 * É o usuário com os dados novos que você enviou no Postman
 		 * O método pega o Nome e Email do obj e joga dentro do newUser
+		 * 
+		 * Assim, o newUser tem o ID antigo (que veio do banco) e o Nome e Email novos (que vieram do Postman).
+		 * Depois, o método save do userRepository salva o newUser atualizado no banco de dados, mantendo o mesmo ID.
 		 */
 	}
 	

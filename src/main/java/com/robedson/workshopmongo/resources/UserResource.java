@@ -21,6 +21,10 @@ import com.robedson.workshopmongo.services.UserService;
 
 @RestController 			// Indicar que essa classe e um Controller
 @RequestMapping("/users") 	// Endpoints do Controller
+
+/**
+ * UserResource é a camada de recursos (controladores REST).
+ */
 public class UserResource {
 
     @Autowired
@@ -66,7 +70,7 @@ public class UserResource {
 
         return ResponseEntity					// Retorna HTTP seguindo o padrao REST
         		.created(uri)					// Status, código 201
-        		.body(new UserDTO(user));		// Retorna o usuario criado
+        		.body(new UserDTO(user));		// Retorna o usuario criado em formato DTO (sem os posts)
     }
 
     // ===============================
